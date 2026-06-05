@@ -35,17 +35,26 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-stable";
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
   };
 
   outputs = {
     nixpkgs-unstable,
-    nixpkgs-stable,
     home-managerU,
-    home-managerS,
     agenix,
     flatpaks,
     catppuccin,
-    disko,
+    lanzaboote,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -64,6 +73,7 @@
           flatpaks.nixosModules.default
           agenix.nixosModules.default
           catppuccin.nixosModules.catppuccin
+          lanzaboote.nixosModules.lanzaboote
           {
             home-manager = {
               useGlobalPkgs = true;

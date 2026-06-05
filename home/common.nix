@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ ...}: {
   imports = [
     ./editors/micro.nix
     ./programs

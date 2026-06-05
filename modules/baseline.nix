@@ -10,21 +10,35 @@ in {
   options.workstation.baseline.enable = lib.mkEnableOption "Baseline workstation configuration";
 
   config = lib.mkIf cfg.enable {
-    nix.settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    nix.settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      substituters = [
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
 
     nixpkgs.config.allowUnfree = true;
 
     boot = {
       loader = {
-        systemd-boot.enable = true;
+        systemd-boot.enable = lib.mkForce false;
         efi.canTouchEfiVariables = true;
+      };
+      lanzaboote = {
+        enable = true;
+        pkiBundle = "/var/lib/sbctl";
       };
       kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = ["uvcvideo"];
     };
+
+    environment.systemPackages = [pkgs.sbctl];
 
     hardware.enableAllFirmware = true;
 

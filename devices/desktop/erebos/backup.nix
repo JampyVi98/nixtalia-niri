@@ -1,4 +1,4 @@
-{...}: {
+_: {
   services.borgbackup.jobs.erebos-home = {
     paths = "/home/jampyvi";
     exclude = [
