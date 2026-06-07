@@ -96,8 +96,8 @@
       };
   in {
     nixosConfigurations = {
-      erebos = mkWorkstation {
-        deviceModule = ./devices/desktop/erebos/default.nix;
+      huskynix = mkWorkstation {
+        deviceModule = ./devices/desktop/huskynix/default.nix;
         hmImports = [
           ./home/common.nix
           ./home/shell/zsh/zsh.nix

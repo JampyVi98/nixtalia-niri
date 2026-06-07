@@ -47,8 +47,8 @@
       nd = "nix develop";
       nr = "nix run";
       nu = "nix-update";
-      nos = "nh os switch ~/nixos#erebos";
-      noh = "nh os home switch ~/nixos#erebos";
+      nos = "nh os switch ~/nixos#huskynix";
+      noh = "nh os home switch ~/nixos#huskynix";
 
       cleanup = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
       bloat = "nix path-info -Sh /run/current-system";
