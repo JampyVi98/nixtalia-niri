@@ -63,8 +63,8 @@
     gimp
     gnome-calculator
     libreoffice
-    prismlauncher
     piper
+    prismlauncher
     vlc
     ytmdesktop
   ];
