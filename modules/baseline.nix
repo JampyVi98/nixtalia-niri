@@ -140,6 +140,7 @@ in {
       tailscale.enable = true;
       libinput.enable = true;
       upower.enable = true;
+      udisks2.enable = true;
       power-profiles-daemon.enable = true;
       pipewire = {
         enable = true;
