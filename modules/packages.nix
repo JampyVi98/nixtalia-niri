@@ -6,7 +6,6 @@
   ...
 }: let
   cfg = config.workstation.baseline.packages;
-  future-cursors = pkgs.callPackage ../pkgs/future-cursor.nix {};
   toolsPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     alejandra
@@ -28,7 +27,6 @@
     dysk
     dust
     fastfetch
-    future-cursors
     lazygit
     lazyssh
     manga-tui
