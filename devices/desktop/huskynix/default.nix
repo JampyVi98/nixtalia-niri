@@ -63,6 +63,7 @@
 
   programs.steam.enable = true;
   programs.coolercontrol.enable = true;
+  services.ratbagd.enable = true;
   hardware.cpu.amd.updateMicrocode = true;
 
   hardware.graphics = {
