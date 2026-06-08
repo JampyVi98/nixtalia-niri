@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     (writeShellApplication {
-      name = "ns";
+      name = "ntv";
       runtimeInputs = [
         fzf
         nix-search-tv

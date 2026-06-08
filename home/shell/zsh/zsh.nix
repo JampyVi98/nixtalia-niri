@@ -46,9 +46,10 @@
       nb = "nix-build";
       nd = "nix develop";
       nr = "nix run";
+      ns = "nix-shell -p";
       nu = "nix-update";
-      nos = "nh os switch ~/nixos#huskynix";
-      noh = "nh os home switch ~/nixos#huskynix";
+      nos = "nh os switch ~/nixos -H huskynix";
+      nhs = "nh home switch ~/nixos -H huskynix";
 
       cleanup = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
       bloat = "nix path-info -Sh /run/current-system";
