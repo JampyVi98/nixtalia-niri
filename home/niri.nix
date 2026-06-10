@@ -11,6 +11,8 @@
     micro.transparent = true;
   };
   programs.ghostty.enable = true;
+  programs.zed-editor.enable = true;
+  programs.prismlauncher.enable = true;
 
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
