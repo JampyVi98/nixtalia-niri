@@ -19,7 +19,6 @@ in {
     environment.systemPackages = with pkgs; [
       inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
       xwayland-satellite
-      tokyonight-gtk-theme
       swayimg
       rose-pine-cursor
       papirus-icon-theme
