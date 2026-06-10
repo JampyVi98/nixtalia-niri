@@ -48,80 +48,68 @@
     };
   };
 
-  outputs = {
-    nixpkgs-unstable,
-    home-managerU,
-    agenix,
-    flatpaks,
-    catppuccin,
-    lanzaboote,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    libU = nixpkgs-unstable.lib;
+  outputs =
+    {
+      nixpkgs-unstable,
+      home-managerU,
+      agenix,
+      flatpaks,
+      catppuccin,
+      lanzaboote,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      libU = nixpkgs-unstable.lib;
 
-    mkWorkstation = {
-      deviceModule,
-      hmImports,
-    }:
-      libU.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs;};
-        modules = [
-          deviceModule
-          home-managerU.nixosModules.home-manager
-          flatpaks.nixosModules.default
-          agenix.nixosModules.default
-          catppuccin.nixosModules.catppuccin
-          lanzaboote.nixosModules.lanzaboote
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {inherit inputs;};
-              sharedModules = [
-                (
-                  {osConfig, ...}: {
-                    _module.args.hostName = osConfig.networking.hostName;
-                  }
-                )
-              ];
-              users.jampyvi = {
-                imports = hmImports;
+      mkWorkstation =
+        {
+          deviceModule,
+          hmImports,
+        }:
+        libU.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            deviceModule
+            home-managerU.nixosModules.home-manager
+            flatpaks.nixosModules.default
+            agenix.nixosModules.default
+            catppuccin.nixosModules.catppuccin
+            lanzaboote.nixosModules.lanzaboote
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "backup";
+                extraSpecialArgs = { inherit inputs; };
+                sharedModules = [
+                  (
+                    { osConfig, ... }:
+                    {
+                      _module.args.hostName = osConfig.networking.hostName;
+                    }
+                  )
+                ];
+                users.jampyvi = {
+                  imports = hmImports;
+                };
               };
-            };
-          }
-        ];
-      };
-  in {
-    nixosConfigurations = {
-      huskynix = mkWorkstation {
-        deviceModule = ./devices/desktop/huskynix/default.nix;
-        hmImports = [
-          ./home/common.nix
-          ./home/shell/zsh/zsh.nix
-          ./home/niri.nix
-          catppuccin.homeModules.catppuccin
-        ];
-      };
-
-      # steamos build is still in testing, expect major changes and broken functionality
-      steamos = mkWorkstation {
-        deviceModule = ./devices/desktop/dionysus/default.nix;
-        hmImports = [
-          ./home/steam.nix
-        ];
-      };
-
-      seed = mkWorkstation {
-        deviceModule = ./devices/server/vms/seed/default.nix;
-        hmImports = [
-          ./home/common.nix
-          ./home/shell/zsh/zsh.nix
-          ./home/kde.nix
-        ];
+            }
+          ];
+        };
+    in
+    {
+      nixosConfigurations = {
+        huskynix = mkWorkstation {
+          deviceModule = ./devices/desktop/huskynix/default.nix;
+          hmImports = [
+            ./home/common.nix
+            ./home/shell/zsh
+            ./home/niri.nix
+            catppuccin.homeModules.catppuccin
+          ];
+        };
       };
     };
-  };
 }
