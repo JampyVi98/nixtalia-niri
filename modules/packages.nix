@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   cfg = config.workstation.baseline.packages;
   toolsPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -76,7 +77,8 @@
     sqlmap
     wireshark
   ];
-in {
+in
+{
   options.workstation.baseline.packages = {
     tools = lib.mkEnableOption "CLI tools and utilities";
     dev = lib.mkEnableOption "Development tools";
