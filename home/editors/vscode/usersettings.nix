@@ -91,14 +91,10 @@
         "javascriptreact"
         "typescriptreact"
         "astro"
-        "svelte"
       ];
 
       # prettier
       "prettier.jsxSingleQuote" = true;
-
-      # svelte
-      "svelte.enable-ts-plugin" = true;
     };
 
     # Formatter settings
