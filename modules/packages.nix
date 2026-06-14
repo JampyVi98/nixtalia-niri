@@ -55,14 +55,16 @@ let
 
   appsPackages = with pkgs; [
     bitwarden-desktop
-    brave
     # (retroarch.withCores (cores: with cores; [ mgba ]))
     discord
     element-desktop
+    file-roller
     gimp
     gnome-calculator
     libreoffice
     piper
+    vivaldi
+    vivaldi-ffmpeg-codecs
     vlc
     ytmdesktop
   ];

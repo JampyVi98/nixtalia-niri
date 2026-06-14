@@ -179,7 +179,7 @@ binds {
 
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Alt+Space hotkey-overlay-title="Noctalia Launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Mod+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
+    Mod+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call plugin togglePanel clipboard"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Shift+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
     Mod+Space hotkey-overlay-title="Switch Keyboard Layout" { switch-layout "next"; }
@@ -189,7 +189,10 @@ binds {
     Mod+B { spawn "/run/current-system/sw/bin/bitwarden"; }
     Mod+X { spawn "antigravity"; }
     Mod+Shift+J  { spawn "/run/current-system/sw/bin/jellyfin-desktop"; }
-    Mod+M { spawn-sh "mailspring --password-store='gnome-libsecret'"; }
+    Mod+M { spawn-sh "thunderbird"; }
+    Ctrl+Shift+Escape { spawn-sh "resources"; }
+    Mod+T { spawn-sh "noctalia-shell ipc call plugin:translator toggle es"; }
+    Mod+Escape { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     Mod+N { spawn-sh "ghostty -e nvim"; }
     Mod+Shift+M { spawn-sh "noctalia-shell ipc call plugin togglePanel MediaMini"; }
     Mod+Ctrl+Space { spawn-sh "noctalia-shell ipc call settings toggle"; }

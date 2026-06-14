@@ -9,5 +9,8 @@
     # ./mpv.nix
     # ./obs-studio.nix
     ./ssh.nix
+    ./brave.nix
+    ./thunderbird.nix
+    ./noctalia.nix
   ];
 }

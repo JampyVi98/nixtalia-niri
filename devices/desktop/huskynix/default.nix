@@ -44,7 +44,6 @@
       enable = true;
       onCalendar = "weekly";
       packages = [
-        "flathub:app/com.vivaldi.Vivaldi//stable"
         "flathub:app/com.github.tchx84.Flatseal//stable"
       ];
     };

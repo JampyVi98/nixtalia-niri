@@ -166,18 +166,21 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
+    Mod+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call plugin togglePanel clipboard"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Shift+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
 
+    Mod+M { spawn-sh "thunderbird"; }
+    Ctrl+Shift+Escape { spawn-sh "resources"; }
+    Mod+T { spawn-sh "noctalia-shell ipc call plugin:translator toggle es"; }
+    Mod+Escape { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     Mod+Z { spawn-sh "flatpak run app.zen_browser.zen"; }
     Mod+X { spawn "codium"; }
     Mod+B { spawn "/run/current-system/sw/bin/bitwarden"; }
     Mod+S { spawn "/run/current-system/sw/bin/signal-desktop"; }
     Mod+Shift+J { spawn-sh "/run/current-system/sw/bin/jellyfin-desktop"; }
     Mod+N { spawn-sh "ghostty -e nvim"; }
-    Mod+M { spawn "/run/current-system/sw/bin/feishin"; }
-       Mod+Space { spawn-sh "noctalia-shell ipc call settings toggle"; }
+    Mod+Space { spawn-sh "noctalia-shell ipc call settings toggle"; }
     Mod+Y { spawn-sh "ghostty -e yazi"; }
     Mod+Shift+B { spawn-sh "ghostty -e btop"; }
 
