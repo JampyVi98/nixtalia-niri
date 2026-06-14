@@ -4,15 +4,12 @@
   pkgs,
   inputs,
   ...
-}:
-let
+}: let
   cfg = config.workstation.baseline.packages;
   toolsPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     alejandra
-    git
     curl
-    ghostty
     blueman
     ffmpeg
     whois
@@ -27,9 +24,9 @@ let
     deadnix
     dysk
     dust
-    fastfetch
     lazygit
     lazyssh
+    loupe
     manga-tui
     nh
     nix-search-tv
@@ -38,10 +35,10 @@ let
     statix
     tealdeer
     teams-for-linux
-    udiskie
     unzip
     wev
     wget
+    wtype
   ];
 
   devPackages = with pkgs; [
@@ -79,8 +76,7 @@ let
     sqlmap
     wireshark
   ];
-in
-{
+in {
   options.workstation.baseline.packages = {
     tools = lib.mkEnableOption "CLI tools and utilities";
     dev = lib.mkEnableOption "Development tools";
