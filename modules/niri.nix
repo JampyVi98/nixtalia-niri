@@ -30,19 +30,22 @@ in {
       mpvpaper
     ];
 
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --cmd niri-session";
-          user = "greeter";
-        };
-
-        initial_session = {
-          command = "niri-session";
-          user = "jampyvi";
+    services.displayManager = {
+      sddm = {
+        enable = true;
+        wayland = {
+          enable = true;
+          compositor = "kwin";
         };
       };
+      defaultSession = "niri";
+      # autoLogin.enable = true;
+      # autoLogin.user = "jampyvi";
+    };
+
+    systemd.services.display-manager.environment = {
+      KWIN_FORCE_SW_CURSOR = "1";
+      WLR_NO_HARDWARE_CURSORS = "1";
     };
   };
 }
