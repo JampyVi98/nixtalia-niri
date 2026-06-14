@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./config
     ./editors/vscode
