@@ -9,45 +9,50 @@
   toolsPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     alejandra
-    curl
     blueman
-    ffmpeg
-    whois
-    parted
-    usbutils
-    smartmontools
-    pciutils
-    file
-    screen
-    parallel
-    dig
+    curl
     deadnix
+    dig
     dysk
     dust
+    ffmpeg
+    file
+    glow
+    killall
     lazygit
     lazyssh
     loupe
+    lsof
     manga-tui
     nh
     nix-search-tv
     nil
+    parted
+    parallel
+    pciutils
     resources
+    screen
+    smartmontools
     statix
     tealdeer
     teams-for-linux
     unzip
+    usbutils
     wev
     wget
+    whois
     wtype
   ];
 
   devPackages = with pkgs; [
-    rustup
-    cargo
-    gcc
-    rustlings
-    terraform
-    distrobox
+    # rustup
+    # cargo
+    # gcc
+    # rustlings
+    # terraform
+    # distrobox
+    docker-compose
+    nodejs_22
   ];
 
   appsPackages = with pkgs; [
@@ -57,12 +62,17 @@
     element-desktop
     file-roller
     gimp
+    grim
+    slurp
+    satty
     gnome-calculator
     libreoffice
     piper
     vivaldi
     vivaldi-ffmpeg-codecs
     vlc
+    wineWowPackages.waylandFull
+    winetricks
     ytmdesktop
   ];
 

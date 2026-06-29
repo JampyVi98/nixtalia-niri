@@ -12,5 +12,7 @@
     ./brave.nix
     ./thunderbird.nix
     ./noctalia.nix
+    ./obsidian.nix
+    ./opencode.nix
   ];
 }

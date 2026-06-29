@@ -22,7 +22,7 @@ in {
       swayimg
       rose-pine-cursor
       papirus-icon-theme
-      nemo
+      (nemo-with-extensions.override { extensions = with pkgs; [ nemo-fileroller nemo-preview ]; })
       fuzzel
       gpu-screen-recorder
       wl-clipboard
@@ -42,6 +42,10 @@ in {
       # autoLogin.enable = true;
       # autoLogin.user = "jampyvi";
     };
+
+    services.dbus.packages = with pkgs; [
+      nemo-preview
+    ];
 
     systemd.services.display-manager.environment = {
       KWIN_FORCE_SW_CURSOR = "1";

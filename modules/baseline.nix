@@ -92,6 +92,7 @@ in {
         "audio"
         "libvirtd"
         "borg"
+        "docker"
       ];
     };
 
@@ -138,6 +139,13 @@ in {
 
     services = {
       tailscale.enable = true;
+      syncthing = {
+        enable = true;
+        user = "jampyvi";
+        dataDir = "/home/jampyvi/Documents/syncthing";
+        configDir = "/home/jampyvi/.config/syncthing";
+        openDefaultPorts = true;
+      };
       libinput.enable = true;
       upower.enable = true;
       gvfs.enable = true;

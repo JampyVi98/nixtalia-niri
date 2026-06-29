@@ -330,7 +330,7 @@ binds {
     // rather than stacked on top of each other.
     Mod+W { toggle-column-tabbed-display; }
 
-    Print      { screenshot; }
+    Print      { spawn-sh "grim -g \"$(slurp -b '#000000B3' -c '#cba6f7' -w 2)\" - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H%M%S').png"; }
     Shift+Print { screenshot-screen; }
     Alt+Print  { screenshot-window; }
 

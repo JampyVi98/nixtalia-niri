@@ -29,7 +29,7 @@
       enable = true; # enable baseline config
       packages = {
         tools = true; # enable common suite of CLI tools
-        dev = false; # enable common langs/lang related tools
+        dev = true; # enable common langs/lang related tools
         apps = true; # enable common desktop applications
         cybersec = true; # enable pentesting and cybersecurity tools
       };
