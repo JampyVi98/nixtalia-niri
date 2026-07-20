@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  programs.vscode.profiles.default.userSettings = let
+  programs.vscodium.profiles.default.userSettings = let
     general = {
       "extensions.autoCheckUpdates" = false;
       "extensions.autoUpdate" = false;

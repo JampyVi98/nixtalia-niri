@@ -5,7 +5,7 @@
     ./usersettings.nix
   ];
 
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
     mutableExtensionsDir = true;
     package = pkgs.vscodium.override {

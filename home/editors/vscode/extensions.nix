@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  programs.vscode.profiles.default = {
+  programs.vscodium.profiles.default = {
     extensions = with pkgs.vscode-extensions; [
       alefragnani.project-manager
       bradlc.vscode-tailwindcss
@@ -8,6 +8,7 @@
       editorconfig.editorconfig
       esbenp.prettier-vscode
       formulahendry.code-runner
+      james-yu.latex-workshop
       meganrogge.template-string-converter
       mikestead.dotenv
       mkhl.direnv

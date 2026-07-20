@@ -12,6 +12,7 @@
     blueman
     curl
     deadnix
+    ddcutil
     dig
     dysk
     dust
@@ -53,12 +54,17 @@
     # distrobox
     docker-compose
     nodejs_22
+    python3
+    tectonic
+    texlab
+    typst
   ];
 
   appsPackages = with pkgs; [
     bitwarden-desktop
     # (retroarch.withCores (cores: with cores; [ mgba ]))
     discord
+    ddcui
     element-desktop
     file-roller
     gimp
@@ -67,13 +73,16 @@
     satty
     gnome-calculator
     libreoffice
+    mission-center
+    nvtopPackages.full
     piper
     vivaldi
     vivaldi-ffmpeg-codecs
     vlc
-    wineWowPackages.waylandFull
+    wineWow64Packages.waylandFull
     winetricks
     ytmdesktop
+    zathura
   ];
 
   cybersecPackages = with pkgs; [

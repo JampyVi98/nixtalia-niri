@@ -22,6 +22,7 @@ in {
     };
     programs.nixvim = {
       enable = true;
+      nixpkgs.source = inputs.nixpkgs-unstable;
       viAlias = true;
       vimAlias = true;
       opts = {
@@ -65,8 +66,8 @@ in {
         nvim-autopairs.enable = true;
         bufferline.enable = true;
         lualine.enable = true;
-        mini.ai.enable = true;
-        mini.pairs.enable = true;
+        mini-ai.enable = true;
+        mini-pairs.enable = true;
         noice.enable = true;
         web-devicons.enable = true;
         treesitter = {
@@ -133,25 +134,22 @@ in {
             pyright.enable = true;
             ts_ls.enable = true;
             jsonls.enable = true;
+            texlab.enable = true;
           };
-        };
-        mason = {
-          enable = true;
-          ensureInstalled = [
-            "stylua"
-            "shellcheck"
-            "shfmt"
-            "flake8"
-          ];
         };
         telescope.enable = true;
       };
+      extraPackages = with pkgs; [
+        stylua
+        shellcheck
+        shfmt
+        python3Packages.flake8
+      ];
       extraPlugins = with pkgs.vimPlugins; [
         flash-nvim
         nui-nvim
         snacks-nvim
         ts-comments-nvim
-        typescript-nvim
       ];
       extraConfigLua = ''
                 -- flash.nvim

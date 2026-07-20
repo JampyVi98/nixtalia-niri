@@ -11,6 +11,7 @@ _: {
         };
         buildInputs = (oldAttrs.buildInputs or []) ++ [final.nss final.opencv final.doctest];
         nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [final.cmake];
+        patches = [];
         postPatch =
           (oldAttrs.postPatch or "")
           + ''

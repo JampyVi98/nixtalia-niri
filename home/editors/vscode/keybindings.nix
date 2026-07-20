@@ -1,5 +1,5 @@
 {
-  programs.vscode.profiles.default.keybindings = [
+  programs.vscodium.profiles.default.keybindings = [
     {
       "key" = "ctrl+`";
       "command" = "workbench.action.terminal.focus";

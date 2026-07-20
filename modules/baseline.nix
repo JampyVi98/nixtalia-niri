@@ -23,10 +23,16 @@ in {
       ];
     };
 
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [
+        "electron-39.8.10"
+      ];
+    };
 
     catppuccin = {
       enable = true;
+      autoEnable = true;
       flavor = "mocha";
       accent = "mauve";
     };
@@ -59,6 +65,7 @@ in {
     environment.systemPackages = [pkgs.sbctl];
 
     hardware.enableAllFirmware = true;
+    hardware.i2c.enable = true;
 
     networking.networkmanager.enable = true;
 
@@ -93,6 +100,7 @@ in {
         "libvirtd"
         "borg"
         "docker"
+        "i2c"
       ];
     };
 
@@ -117,6 +125,8 @@ in {
         nerd-fonts.jetbrains-mono
         nerd-fonts.iosevka
         inter
+        corefonts
+        vista-fonts
       ];
       fontconfig = {
         enable = true;

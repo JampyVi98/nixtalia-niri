@@ -6,6 +6,7 @@
   ];
   catppuccin = {
     enable = true;
+    autoEnable = true;
     flavor = "mocha"; # Sabor Mocha
     accent = "mauve"; # Color de acento (mauve, pink, blue, green, etc.)
     micro.transparent = true;

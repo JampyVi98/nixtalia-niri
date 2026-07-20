@@ -35,12 +35,14 @@ in {
         enable = true;
         wayland = {
           enable = true;
-          compositor = "kwin";
+        };
+        settings = {
+          Theme = {
+            CursorTheme = "BreezeX-RosePine-Linux";
+          };
         };
       };
       defaultSession = "niri";
-      # autoLogin.enable = true;
-      # autoLogin.user = "jampyvi";
     };
 
     services.dbus.packages = with pkgs; [
@@ -49,7 +51,9 @@ in {
 
     systemd.services.display-manager.environment = {
       KWIN_FORCE_SW_CURSOR = "1";
+      KWIN_DRM_NO_AMS = "1";
       WLR_NO_HARDWARE_CURSORS = "1";
+      XCURSOR_THEME = "BreezeX-RosePine-Linux";
     };
   };
 }
