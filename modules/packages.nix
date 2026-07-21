@@ -12,7 +12,6 @@
     blueman
     curl
     deadnix
-    ddcutil
     dig
     dysk
     dust
@@ -64,7 +63,6 @@
     bitwarden-desktop
     # (retroarch.withCores (cores: with cores; [ mgba ]))
     discord
-    ddcui
     element-desktop
     file-roller
     gimp

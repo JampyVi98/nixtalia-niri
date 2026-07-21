@@ -65,7 +65,6 @@ in {
     environment.systemPackages = [pkgs.sbctl];
 
     hardware.enableAllFirmware = true;
-    hardware.i2c.enable = true;
 
     networking.networkmanager.enable = true;
 
@@ -100,7 +99,6 @@ in {
         "libvirtd"
         "borg"
         "docker"
-        "i2c"
       ];
     };
 
