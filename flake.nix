@@ -16,7 +16,7 @@
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/";
+      url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -48,68 +48,63 @@
     };
   };
 
-  outputs =
-    {
-      nixpkgs-unstable,
-      home-managerU,
-      agenix,
-      flatpaks,
-      catppuccin,
-      lanzaboote,
-      ...
-    }@inputs:
-    let
-      system = "x86_64-linux";
-      libU = nixpkgs-unstable.lib;
+  outputs = {
+    nixpkgs-unstable,
+    home-managerU,
+    agenix,
+    flatpaks,
+    catppuccin,
+    lanzaboote,
+    ...
+  } @ inputs: let
+    system = "x86_64-linux";
+    libU = nixpkgs-unstable.lib;
 
-      mkWorkstation =
-        {
-          deviceModule,
-          hmImports,
-        }:
-        libU.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-            deviceModule
-            home-managerU.nixosModules.home-manager
-            flatpaks.nixosModules.default
-            agenix.nixosModules.default
-            catppuccin.nixosModules.catppuccin
-            lanzaboote.nixosModules.lanzaboote
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "backup";
-                extraSpecialArgs = { inherit inputs; };
-                sharedModules = [
-                  (
-                    { osConfig, ... }:
-                    {
-                      _module.args.hostName = osConfig.networking.hostName;
-                    }
-                  )
-                ];
-                users.jampyvi = {
-                  imports = hmImports;
-                };
+    mkWorkstation = {
+      deviceModule,
+      hmImports,
+    }:
+      libU.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs;};
+        modules = [
+          deviceModule
+          home-managerU.nixosModules.home-manager
+          flatpaks.nixosModules.default
+          agenix.nixosModules.default
+          catppuccin.nixosModules.catppuccin
+          lanzaboote.nixosModules.lanzaboote
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {inherit inputs;};
+              sharedModules = [
+                (
+                  {osConfig, ...}: {
+                    _module.args.hostName = osConfig.networking.hostName;
+                  }
+                )
+              ];
+              users.jampyvi = {
+                imports = hmImports;
               };
-            }
-          ];
-        };
-    in
-    {
-      nixosConfigurations = {
-        huskynix = mkWorkstation {
-          deviceModule = ./devices/desktop/huskynix/default.nix;
-          hmImports = [
-            ./home/common.nix
-            ./home/shell/zsh
-            ./home/niri.nix
-            catppuccin.homeModules.catppuccin
-          ];
-        };
+            };
+          }
+        ];
+      };
+  in {
+    nixosConfigurations = {
+      huskynix = mkWorkstation {
+        deviceModule = ./devices/desktop/huskynix/default.nix;
+        hmImports = [
+          ./home/common.nix
+          ./home/shell/zsh
+          ./home/niri.nix
+          catppuccin.homeModules.catppuccin
+        ];
       };
     };
+  };
 }

@@ -1,5 +1,4 @@
-{ pkgs, ... }: 
-let
+{pkgs, ...}: let
   noctalia-plugins = pkgs.fetchFromGitHub {
     owner = "noctalia-dev";
     repo = "noctalia-plugins";

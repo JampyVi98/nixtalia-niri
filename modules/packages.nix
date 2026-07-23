@@ -53,7 +53,8 @@
     # distrobox
     docker-compose
     nodejs_22
-    python3
+    python310
+    python310Packages.virtualenv
     tectonic
     texlab
     typst
@@ -66,6 +67,7 @@
     element-desktop
     file-roller
     gimp
+    pear-desktop
     grim
     slurp
     satty
@@ -79,7 +81,6 @@
     vlc
     wineWow64Packages.waylandFull
     winetricks
-    ytmdesktop
     zathura
   ];
 

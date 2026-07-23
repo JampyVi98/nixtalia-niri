@@ -45,6 +45,7 @@
       onCalendar = "weekly";
       packages = [
         "flathub:app/com.github.tchx84.Flatseal//stable"
+        "flathub:app/io.github.flattool.Warehouse//stable"
       ];
     };
   };
@@ -75,8 +76,6 @@
     input-remapper
     v4l-utils
   ];
-
-  networking.firewall.allowedTCPPorts = [2049];
 
   services.btrfs.autoScrub = {
     enable = true;

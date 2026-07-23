@@ -29,11 +29,11 @@ in {
 
   services.xserver.videoDrivers = ["nvidia"];
 
-  # environment.sessionVariables = {
-  #   GBM_BACKEND = "nvidia-drm";
-  #   __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  #   NVD_BACKEND = "direct";
-  # };
+  environment.sessionVariables = {
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    NVD_BACKEND = "direct";
+  };
 
   hardware.nvidia = {
     package = mkDefault nvidiaPackage;

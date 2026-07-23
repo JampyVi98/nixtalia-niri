@@ -1,10 +1,10 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.chromium = {
     enable = true;
     package = pkgs.brave;
     extensions = [
-      { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
-      { id = "clngdbkpkpeebahjckkjfobafhncgmne"; } # Stylus
+      {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
+      {id = "clngdbkpkpeebahjckkjfobafhncgmne";} # Stylus
     ];
   };
 }

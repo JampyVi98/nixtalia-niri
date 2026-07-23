@@ -141,7 +141,16 @@ in {
     };
 
     programs.dconf.enable = true;
-
+    programs.nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        stdenv.cc.cc.lib
+        zlib
+        glib
+        libGL
+        libglvnd
+      ];
+    };
     programs.zsh.enable = true;
     environment.pathsToLink = ["/share/zsh"];
 

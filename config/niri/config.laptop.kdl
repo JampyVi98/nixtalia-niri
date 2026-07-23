@@ -67,7 +67,7 @@ layout {
     }
 }
 
-spawn-at-startup "noctalia"
+spawn-at-startup "noctalia-shell"
 
 hotkey-overlay {
      skip-at-startup
@@ -166,29 +166,29 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia ipc call plugin togglePanel clipboard"; }
+    Mod+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call plugin togglePanel clipboard"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Shift+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "noctalia ipc call lockScreen lock"; }
+    Super+Shift+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
 
     Mod+M { spawn-sh "thunderbird"; }
     Ctrl+Shift+Escape { spawn-sh "resources"; }
-    Mod+T { spawn-sh "noctalia ipc call plugin:translator toggle es"; }
-    Mod+Escape { spawn-sh "noctalia ipc call sessionMenu toggle"; }
+    Mod+T { spawn-sh "noctalia-shell ipc call plugin:translator toggle es"; }
+    Mod+Escape { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     Mod+Z { spawn-sh "flatpak run app.zen_browser.zen"; }
     Mod+X { spawn "codium"; }
     Mod+B { spawn "/run/current-system/sw/bin/bitwarden"; }
     Mod+S { spawn "/run/current-system/sw/bin/signal-desktop"; }
     Mod+Shift+J { spawn-sh "/run/current-system/sw/bin/jellyfin-desktop"; }
     Mod+N { spawn-sh "ghostty -e nvim"; }
-    Mod+Space { spawn-sh "noctalia ipc call settings toggle"; }
+    Mod+Space { spawn-sh "noctalia-shell ipc call settings toggle"; }
     Mod+Y { spawn-sh "ghostty -e yazi"; }
     Mod+Shift+B { spawn-sh "ghostty -e btop"; }
 
     // Noctalia Media Controls
-    Ctrl+Alt+Space { spawn-sh "noctalia ipc call media playPause"; }
-    Ctrl+Alt+Left { spawn-sh "noctalia ipc call media previous"; }
-    Ctrl+Alt+Right { spawn-sh "noctalia ipc call media next"; }
-    Mod+Shift+M { spawn-sh "noctalia ipc call plugin togglePanel mediaMini"; }
+    Ctrl+Alt+Space { spawn-sh "noctalia-shell ipc call media playPause"; }
+    Ctrl+Alt+Left { spawn-sh "noctalia-shell ipc call media previous"; }
+    Ctrl+Alt+Right { spawn-sh "noctalia-shell ipc call media next"; }
+    Mod+Shift+M { spawn-sh "noctalia-shell ipc call plugin togglePanel mediaMini"; }
 
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
@@ -196,8 +196,8 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "noctalia ipc call brightness increase"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia ipc call brightness decrease"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness increase"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness decrease"; }
 
     Mod+O repeat=false { toggle-overview; }
 

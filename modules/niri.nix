@@ -22,7 +22,7 @@ in {
       swayimg
       rose-pine-cursor
       papirus-icon-theme
-      (nemo-with-extensions.override { extensions = with pkgs; [ nemo-fileroller nemo-preview ]; })
+      (nemo-with-extensions.override {extensions = with pkgs; [nemo-fileroller nemo-preview];})
       fuzzel
       gpu-screen-recorder
       wl-clipboard
