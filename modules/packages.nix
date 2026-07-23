@@ -53,8 +53,7 @@
     # distrobox
     docker-compose
     nodejs_22
-    python311
-    python311Packages.virtualenv
+    conda
     tectonic
     texlab
     typst
