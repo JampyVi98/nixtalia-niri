@@ -155,5 +155,8 @@
         ];
       };
     };
+    packages.x86_64-linux = {
+      pugnix-image = inputs.self.nixosConfigurations.pugnix.config.system.build.sdImage;
+    };
   };
 }
