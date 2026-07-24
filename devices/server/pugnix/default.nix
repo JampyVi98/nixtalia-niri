@@ -60,4 +60,5 @@
 
   # Disable some desktop-oriented virtualisation features from baseline.server if not needed
   # but baseline.server only has docker and qemuGuest, which are fine.
+  system.stateVersion = lib.mkForce "26.05";
 }

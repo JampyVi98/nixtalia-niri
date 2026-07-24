@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
 
     home-managerU = {
       url = "github:nix-community/home-manager";
@@ -11,7 +11,7 @@
     };
 
     home-managerS = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
@@ -50,7 +50,9 @@
 
   outputs = {
     nixpkgs-unstable,
+    nixpkgs-stable,
     home-managerU,
+    home-managerS,
     agenix,
     flatpaks,
     catppuccin,
@@ -106,13 +108,13 @@
         ];
       };
 
-      pugnix = nixpkgs-unstable.lib.nixosSystem {
+      pugnix = nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          "${nixpkgs-unstable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          "${nixpkgs-stable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
           ./devices/server/pugnix/default.nix
-          home-managerU.nixosModules.home-manager
+          home-managerS.nixosModules.home-manager
           catppuccin.nixosModules.catppuccin
           {
             home-manager = {
@@ -135,7 +137,7 @@
                     home = {
                       username = "jampyvi";
                       homeDirectory = "/home/jampyvi";
-                      stateVersion = "25.05";
+                      stateVersion = "26.05";
                     };
                     programs.home-manager.enable = true;
                     programs.btop = {
