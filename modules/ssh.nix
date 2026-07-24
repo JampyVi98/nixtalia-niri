@@ -18,10 +18,7 @@ in {
       };
     };
     users.users."jampyvi".openssh.authorizedKeys.keys = [
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIHUkxCvottvNhhfO11kxxfDBlKL/6+3j3wU00BPKGkljAAAABHNzaDo= yubikey1"
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIPASaOPqKbg2qWBPScJdLt7Um+npdx4XAg8qB7GAA4yaAAAABHNzaDo= yubikey 2 thinkpad"
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIL6UrcHX2dRQu98j1yAO2Xo+XOJReQEXHuYIukguk8/aAAAABHNzaDo= yubikey3 mobile"
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMHAg8btMUyPygL6n7d+aPu9surWfKncWrRf5o1pFRsxAAAABHNzaDo= yubikey4 backup"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEH4xfKvUQry7F+0Im9dW9RLb9moZzxtZZajBcWwZq0M jampyvi"
     ];
     networking.firewall.allowedTCPPorts = [22];
   };

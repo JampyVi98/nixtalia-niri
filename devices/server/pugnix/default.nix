@@ -25,7 +25,7 @@
   users.users.jampyvi = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    hashedPassword = "$6$P76zxyq4JXpeU0Df$Ew3tJ9yPGy5YAnVIYJiDhkK7MFqT/lSZUERXKeB4g1fyL9yPICkE8Zy1kr4S6QjtpcORReYuEejiFaSw9oMrp1"; # Default: pugnix123
+    hashedPassword = "$6$aGcOhn9g1.uBso1m$i3Pm8hQ8Ao.4bjS8oqU0mYyxfZwSBUCWzFa045uimCfelSVl/fNmZHzZ5bHN2ouEYYgA6zucTYZsMKoE18JFF/";
     extraGroups = [
       "wheel"
       "networkmanager"
@@ -40,6 +40,16 @@
     kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = lib.mkForce [ "vfat" "ext4" ];
   };
+
+  # Custom packages for PugNix server
+  environment.systemPackages = with pkgs; [
+    lsof
+    nh
+    unzip
+    tealdeer
+    docker-compose
+    nmap
+  ];
 
   # Disable some desktop-oriented virtualisation features from baseline.server if not needed
   # but baseline.server only has docker and qemuGuest, which are fine.
