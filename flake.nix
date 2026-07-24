@@ -105,6 +105,15 @@
           catppuccin.homeModules.catppuccin
         ];
       };
+
+      pugnix = nixpkgs-unstable.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          "${nixpkgs-unstable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          ./devices/server/pugnix/default.nix
+        ];
+      };
     };
   };
 }

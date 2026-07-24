@@ -65,6 +65,7 @@
   programs.coolercontrol.enable = true;
   services.ratbagd.enable = true;
   hardware.cpu.amd.updateMicrocode = true;
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   hardware.graphics = {
     enable = true;

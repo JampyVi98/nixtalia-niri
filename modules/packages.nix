@@ -71,6 +71,8 @@
     slurp
     satty
     gnome-calculator
+    gnome-disk-utility
+    gnome-boxes
     libreoffice
     mission-center
     nvtopPackages.full
