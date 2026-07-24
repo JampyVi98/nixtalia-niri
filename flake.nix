@@ -112,6 +112,44 @@
         modules = [
           "${nixpkgs-unstable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
           ./devices/server/pugnix/default.nix
+          home-managerU.nixosModules.home-manager
+          catppuccin.nixosModules.catppuccin
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {inherit inputs;};
+              sharedModules = [
+                (
+                  {osConfig, ...}: {
+                    _module.args.hostName = osConfig.networking.hostName;
+                  }
+                )
+              ];
+              users.jampyvi = {
+                imports = [
+                  ./home/shell/zsh
+                  catppuccin.homeModules.catppuccin
+                  {
+                    home = {
+                      username = "jampyvi";
+                      homeDirectory = "/home/jampyvi";
+                      stateVersion = "25.05";
+                    };
+                    programs.home-manager.enable = true;
+                    programs.btop = {
+                      enable = true;
+                      settings = {
+                        theme_background = true;
+                        truecolor = true;
+                      };
+                    };
+                  }
+                ];
+              };
+            };
+          }
         ];
       };
     };

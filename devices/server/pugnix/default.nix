@@ -21,6 +21,13 @@
   # Enable password login for OpenSSH (initially convenient for headless setup)
   services.openssh.settings.PasswordAuthentication = lib.mkForce true;
 
+  # Catppuccin theme for CLI tools (starship, btop, bat, etc.)
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "mauve";
+  };
+
   # User configuration
   users.users.jampyvi = {
     isNormalUser = true;

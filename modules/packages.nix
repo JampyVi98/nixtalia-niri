@@ -35,7 +35,6 @@
     smartmontools
     statix
     tealdeer
-    teams-for-linux
     unzip
     usbutils
     wev
@@ -77,6 +76,7 @@
     mission-center
     nvtopPackages.full
     piper
+    teams-for-linux
     vivaldi
     vivaldi-ffmpeg-codecs
     vlc
