@@ -28,6 +28,9 @@
     accent = "mauve";
   };
 
+  # Trust jampyvi to allow remote deployments (copying closures)
+  nix.settings.trusted-users = [ "root" "jampyvi" ];
+
   # User configuration
   users.users.jampyvi = {
     isNormalUser = true;
@@ -56,6 +59,7 @@
     tealdeer
     docker-compose
     nmap
+    superfile
   ];
 
   # Disable some desktop-oriented virtualisation features from baseline.server if not needed

@@ -1,5 +1,5 @@
 {
-  description = "The whole kit n kaboodle";
+  description = "JampyVi lab setup";
 
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
