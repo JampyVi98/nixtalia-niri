@@ -18,6 +18,7 @@
     ffmpeg
     file
     glow
+    jq
     killall
     lazygit
     lazyssh
@@ -61,7 +62,7 @@
   appsPackages = with pkgs; [
     bitwarden-desktop
     # (retroarch.withCores (cores: with cores; [ mgba ]))
-    discord
+    vesktop
     element-desktop
     file-roller
     gimp

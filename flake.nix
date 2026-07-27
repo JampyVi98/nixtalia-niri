@@ -1,5 +1,5 @@
 {
-  description = "JampyVi lab setup";
+  description = "A declarative, reproducible, and secure NixOS configuration ecosystem.";
 
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";

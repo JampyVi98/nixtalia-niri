@@ -20,11 +20,11 @@
     enable = true;
     enableCompletion = true;
 
-    initExtra = ''
-      # Fix locale issues over SSH causing duplicated characters and broken prompts
-      export LANG="en_US.UTF-8"
-      export LC_ALL="en_US.UTF-8"
-    '';
+    # initExtra = ''
+    #   # Fix locale issues over SSH causing duplicated characters and broken prompts
+    #   export LANG="en_US.UTF-8"
+    #   export LC_ALL="en_US.UTF-8"
+    # '';
 
     autosuggestion = {
       enable = true;
@@ -56,7 +56,7 @@
       nu = "nix-update";
       nos = "nh os switch ~/nixos -H huskynix";
       nhs = "nh home switch ~/nixos -H huskynix";
-      nrp = "nh os switch ~/nixos -H pugnix --target-host jampyvi@192.168.18.110";
+      npi = "nh os switch ~/nixos -H pugnix --target-host jampyvi@192.168.18.110";
 
       cleanup = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
       bloat = "nix path-info -Sh /run/current-system";
@@ -92,11 +92,11 @@
         src = zsh-nix-shell;
         file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
       }
-      {
-        name = "zsh-vi-mode";
-        src = zsh-vi-mode;
-        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-      }
+      # {
+      #   name = "zsh-vi-mode";
+      #   src = zsh-vi-mode;
+      #   file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      # }
     ];
 
     # initContent = lib.mkMerge [

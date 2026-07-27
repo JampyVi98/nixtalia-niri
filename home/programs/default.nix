@@ -14,5 +14,6 @@
     ./noctalia.nix
     ./obsidian.nix
     ./opencode.nix
+    ./vesktop.nix
   ];
 }
