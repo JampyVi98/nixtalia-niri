@@ -17,6 +17,8 @@ in {
 
     nixpkgs.config.allowUnfree = true;
 
+    environment.enableAllTerminfo = true;
+
     networking.networkmanager.enable = true;
 
     nix.gc = {
