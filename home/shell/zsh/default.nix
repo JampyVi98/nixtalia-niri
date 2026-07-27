@@ -20,6 +20,12 @@
     enable = true;
     enableCompletion = true;
 
+    initExtra = ''
+      # Fix locale issues over SSH causing duplicated characters and broken prompts
+      export LANG="en_US.UTF-8"
+      export LC_ALL="en_US.UTF-8"
+    '';
+
     autosuggestion = {
       enable = true;
       strategy = ["history" "completion"];
