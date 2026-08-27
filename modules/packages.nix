@@ -26,6 +26,7 @@
     lsof
     manga-tui
     nh
+    networkmanagerapplet
     nix-search-tv
     nil
     parted
@@ -66,6 +67,9 @@
     element-desktop
     file-roller
     gimp
+    easyeffects
+    qpwgraph
+    gpu-screen-recorder-gtk
     pear-desktop
     grim
     slurp
@@ -73,7 +77,9 @@
     gnome-calculator
     gnome-disk-utility
     gnome-boxes
+    lazydocker
     libreoffice
+    lutris
     mission-center
     nvtopPackages.full
     piper

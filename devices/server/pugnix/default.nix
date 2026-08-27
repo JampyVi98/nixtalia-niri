@@ -8,12 +8,16 @@
     # Baseline server config
     ../../../modules/baseline.server.nix
     ../../../modules/ssh.nix
+    ../../../modules/pihole.nix
   ];
 
   networking.hostName = "PugNix";
 
   # Enable baseline server config
   server.baseline.enable = true;
+
+  # Enable Pi-hole DNS ad-blocker via Docker
+  server.services.pihole.enable = true;
 
   # Enable SSH
   workstation.ssh.enable = true;
