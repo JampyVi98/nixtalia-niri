@@ -13,14 +13,14 @@
   xdg.configFile = {
     "Kvantum" = {
       source = "${pkgs.catppuccin-kvantum.override {
-        accent = "mauve";
+        accent = "sapphire";
         variant = "mocha";
       }}/share/Kvantum";
       recursive = true;
     };
 
     "Kvantum/kvantum.kvconfig".text = lib.generators.toINI {} {
-      General.theme = "catppuccin-mocha-mauve";
+      General.theme = "catppuccin-mocha-sapphire";
     };
 
     "qt5ct/qt5ct.conf".text = lib.generators.toINI {} {

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
+  nixpkgs.overlays = [ inputs.millennium.overlays.default ];
   imports = [
     ./hardware-configuration.nix
     # ./backup.nix
@@ -61,7 +62,11 @@
     games.enable = true;
   };
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    package = pkgs.millennium-steam;
+  };
+  programs.gamemode.enable = true;
   programs.coolercontrol.enable = true;
   services.ratbagd.enable = true;
   hardware.cpu.amd.updateMicrocode = true;
@@ -76,6 +81,8 @@
     heroic
     input-remapper
     v4l-utils
+    mangohud
+    protonup-qt
   ];
 
   services.btrfs.autoScrub = {

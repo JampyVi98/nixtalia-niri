@@ -34,7 +34,7 @@ in {
       enable = true;
       autoEnable = true;
       flavor = "mocha";
-      accent = "mauve";
+      accent = "sapphire";
     };
 
     boot = {
@@ -117,6 +117,12 @@ in {
       };
     };
 
+    hardware.uinput.enable = true;
+    hardware.logitech.wireless.enable = true;
+    services.udev.packages = with pkgs; [
+      openlogi
+    ];
+
     fonts = {
       enableDefaultPackages = true;
       packages = with pkgs; [
@@ -141,6 +147,10 @@ in {
     };
 
     programs.dconf.enable = true;
+    programs.appimage = {
+      enable = true;
+      binfmt = true;
+    };
     programs.nix-ld = {
       enable = true;
       libraries = with pkgs; [
@@ -149,10 +159,29 @@ in {
         glib
         libGL
         libglvnd
+        libX11
+        libXcursor
+        libXrandr
+        libXi
+        libXinerama
+        libXext
+        libXfixes
+        libXrender
+        libxcb
+        libxkbcommon
+        wayland
+        fontconfig
+        freetype
+        fribidi
+        openssl
+        alsa-lib
+        dbus
+        udev
       ];
     };
     documentation.doc.enable = false;
     programs.zsh.enable = true;
+    environment.localBinInPath = true;
     environment.pathsToLink = ["/share/zsh"];
 
     services = {

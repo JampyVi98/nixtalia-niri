@@ -77,6 +77,7 @@ layout {
 }
 
 spawn-at-startup "noctalia-shell"
+// spawn-at-startup "openlogi-gui"
 
 hotkey-overlay {
      skip-at-startup
@@ -127,7 +128,9 @@ window-rule {
     match app-id="signal"
     match app-id="codium"
     match app-id="com.mitchellh.ghostty"
-    match app-id=r#"nemo$"#
+    match app-id="com.system76.CosmicFiles"
+    match app-id="Alacritty"
+    match app-id="float-term"
     opacity 0.85
     draw-border-with-background false
 }
@@ -157,10 +160,11 @@ window-rule {
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
+    draw-border-with-background false
 }
 
 window-rule {
-    match app-id=r#"nemo$"#
+    match app-id="com.system76.CosmicFiles"
     default-column-width { fixed 1000; }
     default-window-height { fixed 900; }
     open-floating true
@@ -173,9 +177,25 @@ window-rule {
     open-maximized true
 }
 
+window-rule {
+    match app-id="kando"
+    open-floating true
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="float-term"
+    open-floating true
+    draw-border-with-background false
+    default-column-width { fixed 1280; }
+    default-window-height { fixed 720; }
+}
+
 binds {
 
     Mod+Shift+Minus { show-hotkey-overlay; }
+
+    Mod+Ctrl+Space { spawn-sh "kando --menu 'Basics'"; }
 
     Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Alt+Space hotkey-overlay-title="Noctalia Launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
@@ -187,7 +207,7 @@ binds {
     // app shortcuts
     Mod+Z { spawn "brave"; }
     Mod+B { spawn "/run/current-system/sw/bin/bitwarden"; }
-    Mod+X { spawn "antigravity"; }
+    Mod+X { spawn "antigravity-ide"; }
     Mod+Shift+J  { spawn "/run/current-system/sw/bin/jellyfin-desktop"; }
     Mod+M { spawn-sh "thunderbird"; }
     Ctrl+Shift+Escape { spawn-sh "resources"; }
@@ -195,8 +215,8 @@ binds {
     Mod+Escape { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
     Mod+N { spawn-sh "ghostty -e nvim"; }
     Mod+Shift+M { spawn-sh "noctalia-shell ipc call plugin togglePanel MediaMini"; }
-    Mod+Ctrl+Space { spawn-sh "noctalia-shell ipc call settings toggle"; }
-    Mod+Shift+Space {spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
+    Mod+Shift+Space { spawn-sh "noctalia-shell ipc call settings toggle"; }
+    // Mod+Shift+Space {spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
     Mod+Y { spawn-sh "ghostty -e yazi"; }
     Mod+Shift+B { spawn-sh "ghostty -e btop"; }
 
@@ -235,16 +255,16 @@ binds {
     Mod+Shift+Home { move-column-to-first; }
     Mod+Shift+End  { move-column-to-last; }
 
-    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-    Mod+Ctrl+U         { move-column-to-workspace-down; }
-    Mod+Ctrl+I         { move-column-to-workspace-up; }
+    Mod+Shift+Page_Down { move-column-to-workspace-down; }
+    Mod+Shift+Page_Up   { move-column-to-workspace-up; }
+    Mod+Shift+U         { move-column-to-workspace-down; }
+    Mod+Shift+I         { move-column-to-workspace-up; }
 
     // Workspace movement
-    Mod+Shift+Shift+Page_Down { move-workspace-down; }
-    Mod+Shift+Shift+Page_Up   { move-workspace-up; }
-    Mod+Shift+Shift+U         { move-workspace-down; }
-    Mod+Shift+Shift+I         { move-workspace-up; }
+    Mod+Ctrl+Shift+Page_Down { move-workspace-down; }
+    Mod+Ctrl+Shift+Page_Up   { move-workspace-up; }
+    Mod+Ctrl+Shift+U         { move-workspace-down; }
+    Mod+Ctrl+Shift+I         { move-workspace-up; }
 
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }

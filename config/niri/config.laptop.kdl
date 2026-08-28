@@ -123,7 +123,9 @@ window-rule {
     match app-id="signal"
     match app-id="codium"
     match app-id="com.mitchellh.ghostty"
-    match app-id=r#"nemo$"#
+    match app-id="com.system76.CosmicFiles"
+    match app-id="Alacritty"
+    match app-id="float-term"
     opacity 0.85
     draw-border-with-background false
 }
@@ -138,10 +140,11 @@ window-rule {
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
+    draw-border-with-background false
 }
 
 window-rule {
-    match app-id=r#"nemo$"#
+    match app-id="com.system76.CosmicFiles"
     default-column-width { fixed 1000; }
     default-window-height { fixed 900; }
     open-floating true
@@ -159,6 +162,20 @@ window-rule {
     default-column-width { fixed 1054; }
     default-window-height { fixed 900; }
     default-floating-position x=0 y=14.5 relative-to="top"
+}
+
+window-rule {
+    match app-id="kando"
+    open-floating true
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="float-term"
+    open-floating true
+    draw-border-with-background false
+    default-column-width { fixed 1000; }
+    default-window-height { fixed 650; }
 }
 
 binds {

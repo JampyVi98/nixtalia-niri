@@ -57,6 +57,7 @@
       nos = "nh os switch ~/nixos -H huskynix";
       nhs = "nh home switch ~/nixos -H huskynix";
       npi = "nh os switch ~/nixos -H pugnix --target-host jampyvi@192.168.18.110";
+      nrp = "nh os switch ~/nixos -H pugnix --target-host jampyvi@192.168.18.110";
 
       cleanup = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
       bloat = "nix path-info -Sh /run/current-system";

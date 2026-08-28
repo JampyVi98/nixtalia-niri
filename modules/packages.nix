@@ -80,8 +80,10 @@
     lazydocker
     libreoffice
     lutris
+    kando
     mission-center
     nvtopPackages.full
+    openlogi
     piper
     teams-for-linux
     vivaldi

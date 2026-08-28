@@ -106,9 +106,8 @@
       "[json]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
       "[jsonc]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
       "[markdown]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
-      "[nix]"."editor.defaultFormatter" = "jnoortheen.nix-ide";
+      "[nix]"."editor.defaultFormatter" = "kamadorueda.alejandra";
       "[scss]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
-      "[svelte]"."editor.defaultFormatter" = "svelte.svelte-vscode";
       "[typescript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
       "[typescriptreact]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
     };

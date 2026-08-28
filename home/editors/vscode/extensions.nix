@@ -3,12 +3,15 @@
     extensions = with pkgs.vscode-extensions; [
       alefragnani.project-manager
       bradlc.vscode-tailwindcss
+      bbenoist.nix
       christian-kohler.path-intellisense
       eamodio.gitlens
       editorconfig.editorconfig
       esbenp.prettier-vscode
       formulahendry.code-runner
       james-yu.latex-workshop
+      jnoortheen.nix-ide
+      kamadorueda.alejandra
       meganrogge.template-string-converter
       mikestead.dotenv
       mkhl.direnv

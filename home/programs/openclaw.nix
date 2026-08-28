@@ -4,11 +4,24 @@
   lib,
   ...
 }: {
+  home.packages = with pkgs; [
+    nodejs_24
+  ];
+
   programs.openclaw = {
     enable = true;
 
+    config = {
+      gateway = {
+        auth = {
+          mode = "none";
+        };
+      };
+    };
+
     # Enable user systemd service on Linux (PugNix)
     systemd.enable = true;
+    reloadScript.enable = true;
 
     # Extra CLI tools visible to OpenClaw runtime environment
     runtimePackages = with pkgs; [
@@ -23,13 +36,12 @@
 
     # Recommended runtime plugins for communications
     runtimePlugins = [
-      "telegram"
       "discord"
     ];
 
     # Declarative Workspace Context & Agent Identity
     workspace.bootstrapFiles = {
-      IDENTITY = ''
+      identity = pkgs.writeText "IDENTITY.md" ''
         # Agent Identity: PugClaw
         - **Name:** PugClaw Assistant
         - **Host:** PugNix (Raspberry Pi Server)
@@ -37,9 +49,9 @@
         - **Specialty:** Infrastructure monitoring, NixOS system auditing, Pi-hole network management, and security routine automation.
       '';
 
-      USER = ''
-        # User Profile: Jampyvi
-        - **Name:** Jampyvi
+      user = pkgs.writeText "USER.md" ''
+        # User Profile: Jampy
+        - **Name:** JampyVi
         - **Role:** Cybersecurity Analyst / SOC Engineer & Systems Administrator
         - **Main Systems:**
           - `Huskynix` (Desktop Workstation: NixOS Unstable, Niri Wayland, Dual GPU, PipeWire)
@@ -51,7 +63,7 @@
         - **Preferences:** Technical, precise, security-first mindset, Spanish primary language.
       '';
 
-      AGENTS = ''
+      agents = pkgs.writeText "AGENTS.md" ''
         # Operating Guidelines
         1. **Declarative First:** Never recommend manual changes that drift from NixOS / Home-Manager flake state.
         2. **Least Privilege:** Respect system boundaries and security policies.
@@ -59,13 +71,13 @@
         4. **Automation Helper:** Assist in generating SOC routine reports, Dataview queries, and Nix flake modules.
       '';
 
-      SOUL = ''
+      soul = pkgs.writeText "SOUL.md" ''
         # Agent Mission
-        Be a proactive, reliable, and secure companion for Jampyvi's homelab and cybersecurity workflows.
+        Be a proactive, reliable, funny and secure companion for JampyVi's homelab and cybersecurity workflows.
         Deliver concise, actionable insights and prioritize declarative system integrity above all.
       '';
 
-      TOOLS = ''
+      tools = pkgs.writeText "TOOLS.md" ''
         # Available Capabilities
         - **NixOS Tooling:** `nix`, `nh`, `home-manager`, `nixos-rebuild`
         - **Network & DNS:** `dig`, `curl`, `tailscale`, Pi-hole FTL API

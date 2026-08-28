@@ -20,6 +20,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -32,6 +37,11 @@
 
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
     catppuccin.url = "github:catppuccin/nix";
+
+    nix-openclaw = {
+      url = "github:openclaw/nix-openclaw";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -46,6 +56,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.rust-overlay.follows = "rust-overlay";
     };
+
+    millennium = {
+      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
@@ -57,6 +72,7 @@
     flatpaks,
     catppuccin,
     lanzaboote,
+    millennium,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -117,6 +133,22 @@
           home-managerS.nixosModules.home-manager
           catppuccin.nixosModules.catppuccin
           {
+            nixpkgs.overlays = [
+              inputs.nix-openclaw.overlays.default
+              (final: prev: {
+                nodejs_22 = prev.nodejs_24;
+                sqlite = prev.sqlite.overrideAttrs (oldAttrs: {
+                  version = "3.51.3";
+                  doCheck = false;
+                  src = prev.fetchurl {
+                    url = "https://sqlite.org/2026/sqlite-src-3510300.zip";
+                    hash = "sha256-+KZ6H1tcrnxtQvCZTKe/GkpYWIaMgq3J/BNAvtXrjNI=";
+                  };
+                });
+              })
+            ];
+          }
+          {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
@@ -132,7 +164,9 @@
               users.jampyvi = {
                 imports = [
                   ./home/shell/zsh
+                  ./home/programs/openclaw.nix
                   catppuccin.homeModules.catppuccin
+                  inputs.nix-openclaw.homeManagerModules.openclaw
                   {
                     home = {
                       username = "jampyvi";

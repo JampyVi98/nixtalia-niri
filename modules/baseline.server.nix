@@ -50,28 +50,29 @@ in {
     environment.systemPackages = with pkgs; [
       # tools/etc
       inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
-      wget
-      git
-      htop
-      curl
-      tree
-      fastfetch
-      starship
-      ffmpeg
-      whois
-      parted
-      usbutils
-      smartmontools
-      pciutils
-      file
-      dig
-      oh-my-zsh
       autojump
       compose2nix
-      jq
-      screen
+      curl
+      dig
       eza
+      fastfetch
+      ffmpeg
+      file
+      git
+      htop
+      jq
+      lazydocker
+      oh-my-zsh
+      parted
+      pciutils
+      screen
+      smartmontools
+      starship
+      tree
+      usbutils
       vim
+      wget
+      whois
     ];
 
     services = {

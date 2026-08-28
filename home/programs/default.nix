@@ -1,5 +1,6 @@
 {
   imports = [
+    ./alacritty.nix
     ./fastfetch.nix
     ./flatpak-search.nix
     ./gh.nix
@@ -14,6 +15,7 @@
     ./noctalia.nix
     ./obsidian.nix
     ./opencode.nix
-    ./vesktop.nix
+    # ./openclaw.nix
+    # ./vesktop.nix
   ];
 }

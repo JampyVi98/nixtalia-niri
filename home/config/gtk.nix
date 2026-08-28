@@ -6,9 +6,9 @@
   gtk = {
     enable = true;
     theme = {
-      name = "catppuccin-mocha-mauve-standard";
+      name = "catppuccin-mocha-sapphire-standard";
       package = pkgs.catppuccin-gtk.override {
-        accents = ["mauve"];
+        accents = ["sapphire"];
         size = "standard";
         variant = "mocha";
       };
@@ -38,6 +38,6 @@
   };
 
   home.sessionVariables = {
-    GTK_THEME = "catppuccin-mocha-mauve-standard";
+    GTK_THEME = "catppuccin-mocha-sapphire-standard";
   };
 }

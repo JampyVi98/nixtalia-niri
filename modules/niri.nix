@@ -7,6 +7,10 @@
 }: let
   cfg = config.workstation.niri;
 in {
+  imports = [
+    inputs.noctalia-greeter.nixosModules.default
+  ];
+
   options.workstation.niri.enable = lib.mkEnableOption "Niri-based workstation environment with Noctalia Shell";
 
   config = lib.mkIf cfg.enable {
@@ -22,7 +26,7 @@ in {
       swayimg
       rose-pine-cursor
       papirus-icon-theme
-      (nemo-with-extensions.override {extensions = with pkgs; [nemo-fileroller nemo-preview];})
+      cosmic-files
       fuzzel
       gpu-screen-recorder
       wl-clipboard
@@ -32,7 +36,7 @@ in {
 
     services.displayManager = {
       sddm = {
-        enable = true;
+        enable = false;
         wayland = {
           enable = true;
         };
@@ -45,9 +49,17 @@ in {
       defaultSession = "niri";
     };
 
-    services.dbus.packages = with pkgs; [
-      nemo-preview
-    ];
+    programs.noctalia-greeter = {
+      enable = true;
+    };
+
+    security.pam.services.greetd.fprintAuth = false;
+
+    services.greetd.settings.initial_session = {
+      command = "${config.programs.niri.package}/bin/niri-session";
+      user = "jampyvi";
+    };
+
 
     systemd.services.display-manager.environment = {
       KWIN_FORCE_SW_CURSOR = "1";
