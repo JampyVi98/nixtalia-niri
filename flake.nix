@@ -130,21 +130,6 @@
           home-managerS.nixosModules.home-manager
           catppuccin.nixosModules.catppuccin
           {
-            nixpkgs.overlays = [
-              (_final: prev: {
-                nodejs_22 = prev.nodejs_24;
-                sqlite = prev.sqlite.overrideAttrs (_oldAttrs: {
-                  version = "3.51.3";
-                  doCheck = false;
-                  src = prev.fetchurl {
-                    url = "https://sqlite.org/2026/sqlite-src-3510300.zip";
-                    hash = "sha256-+KZ6H1tcrnxtQvCZTKe/GkpYWIaMgq3J/BNAvtXrjNI=";
-                  };
-                });
-              })
-            ];
-          }
-          {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
