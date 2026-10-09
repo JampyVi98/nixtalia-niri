@@ -196,7 +196,7 @@ binds {
     Mod+B { spawn "/run/current-system/sw/bin/bitwarden"; }
     Mod+S { spawn "/run/current-system/sw/bin/signal-desktop"; }
     Mod+Shift+J { spawn-sh "/run/current-system/sw/bin/jellyfin-desktop"; }
-    Mod+N { spawn-sh "ghostty -e nvim"; }
+    Mod+N { spawn-sh "ghostty -e micro"; }
     Mod+Space { spawn-sh "noctalia-shell ipc call settings toggle"; }
     Mod+Y { spawn-sh "ghostty -e yazi"; }
     Mod+Shift+B { spawn-sh "ghostty -e btop"; }

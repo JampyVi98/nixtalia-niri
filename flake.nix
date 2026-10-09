@@ -30,21 +30,13 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
     catppuccin.url = "github:catppuccin/nix";
 
-    nix-openclaw = {
-      url = "github:openclaw/nix-openclaw";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs-stable";
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -61,6 +53,12 @@
       url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    herdr = {
+      url = "github:herdrdev/herdr";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
   };
 
   outputs = {
@@ -72,7 +70,6 @@
     flatpaks,
     catppuccin,
     lanzaboote,
-    millennium,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -134,10 +131,9 @@
           catppuccin.nixosModules.catppuccin
           {
             nixpkgs.overlays = [
-              inputs.nix-openclaw.overlays.default
-              (final: prev: {
+              (_final: prev: {
                 nodejs_22 = prev.nodejs_24;
-                sqlite = prev.sqlite.overrideAttrs (oldAttrs: {
+                sqlite = prev.sqlite.overrideAttrs (_oldAttrs: {
                   version = "3.51.3";
                   doCheck = false;
                   src = prev.fetchurl {
@@ -164,15 +160,16 @@
               users.jampyvi = {
                 imports = [
                   ./home/shell/zsh
-                  ./home/programs/openclaw.nix
+                  ./home/programs/hermes.nix
                   catppuccin.homeModules.catppuccin
-                  inputs.nix-openclaw.homeManagerModules.openclaw
+                  inputs.hermes-agent.homeManagerModules.default
                   {
                     home = {
                       username = "jampyvi";
                       homeDirectory = "/home/jampyvi";
                       stateVersion = "26.05";
                     };
+                    catppuccin.autoEnable = true;
                     programs.home-manager.enable = true;
                     programs.btop = {
                       enable = true;

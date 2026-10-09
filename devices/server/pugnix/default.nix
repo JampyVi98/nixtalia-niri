@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  inputs,
   ...
 }: {
   imports = [
@@ -28,6 +27,7 @@
   # Catppuccin theme for CLI tools (starship, btop, bat, etc.)
   catppuccin = {
     enable = true;
+    autoEnable = true;
     flavor = "mocha";
     accent = "mauve";
   };

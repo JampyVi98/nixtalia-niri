@@ -74,6 +74,11 @@ in {
       options = "--delete-older-than 7d";
     };
 
+    nix.optimise = {
+      automatic = true;
+      dates = ["weekly"];
+    };
+
     time.timeZone = "America/Guayaquil";
 
     services.xserver.xkb = {
@@ -119,9 +124,6 @@ in {
 
     hardware.uinput.enable = true;
     hardware.logitech.wireless.enable = true;
-    services.udev.packages = with pkgs; [
-      openlogi
-    ];
 
     fonts = {
       enableDefaultPackages = true;
@@ -167,6 +169,9 @@ in {
         libXext
         libXfixes
         libXrender
+        libXcomposite
+        libXdamage
+        libxshmfence
         libxcb
         libxkbcommon
         wayland
@@ -177,8 +182,30 @@ in {
         alsa-lib
         dbus
         udev
+        nspr
+        nss
+        at-spi2-atk
+        at-spi2-core
+        cups
+        expat
+        libdrm
+        mesa
+        libgbm
+        cairo
+        pango
+        gdk-pixbuf
+        gtk3
+        gtk4
+        harfbuzz
+        libjpeg
+        libpng
+        libopus
+        libvpx
+        libevent
+        ffmpeg
       ];
     };
+    services.envfs.enable = true;
     documentation.doc.enable = false;
     programs.zsh.enable = true;
     environment.localBinInPath = true;

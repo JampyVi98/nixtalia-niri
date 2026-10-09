@@ -15,6 +15,7 @@
     ./noctalia.nix
     ./obsidian.nix
     ./opencode.nix
+    ./pi.nix
     # ./openclaw.nix
     # ./vesktop.nix
   ];

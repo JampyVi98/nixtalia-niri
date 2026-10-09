@@ -1,6 +1,19 @@
-terra/.terraform.lock.hcl
-terra/.terraform/
-terra/terraform.tfstate
-terra/terraform.tfstate.backup
-terra/.terraform.tfstate.lock.info
+# Nix build artifacts
 result
+result-*
+*.drv
+
+# Backup & temporary files
+*.bak
+*.backup
+*.tmp
+*.swp
+*.swo
+*~
+
+# Direnv & local cache
+.direnv/
+.cache/
+
+# Local secrets
+smb-secrets

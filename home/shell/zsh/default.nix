@@ -9,6 +9,7 @@
     ./programs/dircolors.nix
     ./programs/direnv.nix
     ./programs/eza.nix
+    ./programs/fnm.nix
     ./programs/fzf.nix
     ./programs/nix-search.nix
     ./programs/starship.nix
@@ -55,12 +56,11 @@
       ns = "nix-shell -p";
       nu = "nix-update";
       nos = "nh os switch ~/nixos -H huskynix";
+      npu = "nh os switch ~/nixos -H huskynix --update";
       nhs = "nh home switch ~/nixos -H huskynix";
-      npi = "nh os switch ~/nixos -H pugnix --target-host jampyvi@192.168.18.110";
       nrp = "nh os switch ~/nixos -H pugnix --target-host jampyvi@192.168.18.110";
 
       cleanup = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
-      bloat = "nix path-info -Sh /run/current-system";
       repair = "nix-store --verify --check-contents --repair";
 
       # ls = "eza";
@@ -69,6 +69,7 @@
       lg = "lazygit";
       borg_backup = "systemctl restart borgbackup-job-${hostName}-home";
       borg_logs = "journalctl -u borgbackup-job-${hostName}-home";
+      antigravity = "agy";
       port_forward = "while true ; do date ; natpmpc -a 1 0 udp 60 -g 10.2.0.1 && natpmpc -a 1 0 tcp 60 -g 10.2.0.1 || { echo -e 'ERROR with natpmpc command \a' ; break ; } ; sleep 45 ; done";
     };
 

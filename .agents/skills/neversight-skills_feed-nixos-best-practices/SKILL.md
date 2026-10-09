@@ -76,6 +76,9 @@ When `useGlobalPkgs = true`, overlays must be defined at the NixOS configuration
 | Multiple host configurations | Create separate host files in `hosts/` |
 | Shared configuration modules | Create modules in `modules/` and import in each host |
 | Package not found after overlay | Check overlay scope vs useGlobalPkgs setting |
+| Override compiler flags safely | Modify inside `env = (old.env or {}) // { NIX_CFLAGS_COMPILE = ...; }` |
+| Check multi-arch flake support | Test `nix flake show <flake>` before adding to ARM/aarch64 hosts |
+| Track new modules for flakes | Run `git add <file.nix>` so Nix flakes can read newly created files |
 
 ## Overlay Scope Decision Matrix
 
@@ -86,6 +89,38 @@ When `useGlobalPkgs = true`, overlays must be defined at the NixOS configuration
 | `false` | `home.nix` with `nixpkgs.overlays` | Home Manager packages only |
 | `false` | `home-manager.nixpkgs.overlays` | Home Manager packages only |
 | Any | System `nixpkgs.overlays` | System packages only |
+
+## Advanced Derivation & Multi-Arch Patterns
+
+### Safe `stdenv.mkDerivation` Compiler Flag Overrides (`env`)
+
+When overriding packages that declare `env`, passing top-level environment variables (like `NIX_CFLAGS_COMPILE`) causes collision errors. Always nest them inside `env`:
+
+```nix
+# ❌ WRONG: Collides with derivation's env attribute
+(pkg.overrideAttrs (old: {
+  NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-error";
+}))
+
+# ✅ CORRECT: Modify inside env attribute
+(pkg.overrideAttrs (old: {
+  env = (old.env or { }) // {
+    NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error";
+  };
+}))
+```
+
+### Multi-Architecture Flake Checks (`aarch64-linux` vs `x86_64-linux`)
+
+Before importing external flakes into ARM profiles (e.g. Raspberry Pi / `pugnix`), verify that their packages support `aarch64-linux` and do not bundle x86-only prebuilts:
+
+```bash
+# Check available architecture outputs
+nix flake show <flake-url>
+
+# Dry-eval the host configuration
+nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath
+```
 
 ## Configuration Layers (Bottom to Top)
 
@@ -111,6 +146,9 @@ When `useGlobalPkgs = true`, overlays must be defined at the NixOS configuration
 - "Package works in nix repl but not installed" → Check overlay scope
 - "Changes don't apply after rebuild" → Verify overlay is in correct location
 - "useGlobalPkgs=false for no reason" → Use true unless you need separate package sets
+- "The `env` attribute set cannot contain any attributes passed to derivation" → Put compiler flags inside `env = (old.env or {}) // { ... }`
+- "Unsupported pnpm/binary platform aarch64-linux" → Remove or replace x86-only flake on ARM devices
+- "Path '...' is not tracked by Git" → Run `git add <file>` before evaluating flake
 
 ## How to Use
 

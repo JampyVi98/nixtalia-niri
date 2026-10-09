@@ -77,7 +77,7 @@ layout {
 }
 
 spawn-at-startup "noctalia-shell"
-// spawn-at-startup "openlogi-gui"
+spawn-at-startup "vesktop"
 
 hotkey-overlay {
      skip-at-startup
@@ -213,7 +213,7 @@ binds {
     Ctrl+Shift+Escape { spawn-sh "resources"; }
     Mod+T { spawn-sh "noctalia-shell ipc call plugin:translator toggle es"; }
     Mod+Escape { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
-    Mod+N { spawn-sh "ghostty -e nvim"; }
+    Mod+N { spawn-sh "ghostty -e micro"; }
     Mod+Shift+M { spawn-sh "noctalia-shell ipc call plugin togglePanel MediaMini"; }
     Mod+Shift+Space { spawn-sh "noctalia-shell ipc call settings toggle"; }
     // Mod+Shift+Space {spawn-sh "noctalia-shell ipc call controlCenter toggle"; }

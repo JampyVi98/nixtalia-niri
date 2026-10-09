@@ -36,6 +36,7 @@
     screen
     smartmontools
     statix
+    steam-run
     tealdeer
     unzip
     usbutils
@@ -52,9 +53,23 @@
     # rustlings
     # terraform
     # distrobox
+    antigravity-cli
+    astro-language-server
+    codex
     docker-compose
-    nodejs_22
-    (python312.withPackages (ps: [ ps.virtualenv ]))
+    fnm
+    google-lighthouse
+    inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
+    nodejs_24
+    pnpm
+    (python312.withPackages (ps:
+      with ps; [
+        pip
+        virtualenv
+        setuptools
+        wheel
+      ]))
+    uv
     tectonic
     texlab
     typst
@@ -83,24 +98,29 @@
     kando
     mission-center
     nvtopPackages.full
-    openlogi
     piper
     teams-for-linux
     vivaldi
     vivaldi-ffmpeg-codecs
     vlc
+    warp-terminal
     wineWow64Packages.waylandFull
     winetricks
     zathura
   ];
 
   cybersecPackages = with pkgs; [
+    burpsuite
     hashcat
     john
     metasploit
     nmap
-    nikto
-    openvas-scanner
+    # nikto
+    # (openvas-scanner.overrideAttrs (old: {
+    #   env = (old.env or { }) // {
+    #     NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error";
+    #   };
+    # }))
     sqlmap
     wireshark
   ];

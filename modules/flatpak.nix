@@ -89,7 +89,7 @@ in {
       inherit (cfg) overrides;
       inherit (cfg) veryVerbose;
       inherit (cfg) flatpakDir;
-      inherit (cfg) forceRunOnActivation;
+      alwaysRunOnActivation = cfg.forceRunOnActivation;
       onCalendar = "weekly";
 
       # optional hooks

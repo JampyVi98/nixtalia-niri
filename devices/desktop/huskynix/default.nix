@@ -1,22 +1,31 @@
-{pkgs, inputs, ...}: {
-  nixpkgs.overlays = [ inputs.millennium.overlays.default ];
+{
+  pkgs,
+  inputs,
+  ...
+}: let
+  heroic-wrapped = pkgs.symlinkJoin {
+    name = "heroic";
+    paths = [
+      (pkgs.writeShellScriptBin "heroic" ''
+        exec ${pkgs.steam-run}/bin/steam-run ${pkgs.heroic}/bin/heroic "$@"
+      '')
+      pkgs.heroic
+    ];
+  };
+in {
+  nixpkgs.overlays = [inputs.millennium.overlays.default];
   imports = [
     ./hardware-configuration.nix
     # ./backup.nix
     ../../../modules/baseline.nix # <-- shared config between laptop/desktop
     ../../../modules/flatpak.nix
     ../../../modules/niri.nix #     <-- niri environment
-    # ../../../modules/hypr.nix     <-- hyprland environment
-    # ../../../modules/gnome.nix    <-- gnome environemt
     ../../../modules/kde.nix # <-- kde environment
-    # ../../../modules/xfce.nix     <-- xfce environment
     ../../../modules/mount.nix
     ../../../modules/packages.nix
     ../../../modules/ssh.nix
-    ../../../modules/nixvim.nix
     ../../../modules/nvidia.nix
     ../../../modules/amd.nix
-    # ../../../modules/yazi.nix
     ../../../modules/virtualization.nix
     ../../../modules/polkit.nix
     ../../../modules/fingerprint.nix
@@ -35,7 +44,6 @@
         cybersec = true; # enable pentesting and cybersecurity tools
       };
     };
-    nixvim.enable = true; # enable nixvim configuration
     niri.enable = true; # change to a different profile if you want
     kde.enable = false;
     polkit.enable = true;
@@ -70,20 +78,34 @@
   programs.coolercontrol.enable = true;
   services.ratbagd.enable = true;
   hardware.cpu.amd.updateMicrocode = true;
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   hardware.graphics = {
     enable = true;
   };
 
+  hardware.nvidia.prime = {
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
+    };
+    nvidiaBusId = "PCI:1:0:0";
+    amdgpuBusId = "PCI:22:0:0";
+  };
+
   environment.systemPackages = with pkgs; [
     lm_sensors
-    heroic
+    steam-run
+    heroic-wrapped
     input-remapper
     v4l-utils
     mangohud
     protonup-qt
   ];
+
+  networking.firewall = {
+    allowedTCPPorts = [25565];
+  };
 
   services.btrfs.autoScrub = {
     enable = true;

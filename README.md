@@ -1,6 +1,6 @@
 # ❄️ Nixtalia Niri
 
-_A declarative, reproducible, and secure NixOS configuration ecosystem._
+_A declarative, reproducible, and multi-architecture NixOS configuration ecosystem._
 
 [English](#english) | [Español](#español)
 
@@ -8,112 +8,59 @@ _A declarative, reproducible, and secure NixOS configuration ecosystem._
 
 ## English
 
-Welcome to **Nixtalia Niri**, my personal NixOS configuration suite. This repository uses **Flakes** and **Home Manager** to manage the entire system state declaratively across different devices.
+Welcome to **Nixtalia Niri**, a centralized, modular NixOS ecosystem managed with **Nix Flakes** and **Home Manager**. This repository coordinates workstations and servers across different hardware architectures (`x86_64-linux` and `aarch64-linux`).
 
-### 🖥️ Devices
+### 🖥️ Managed Hosts
 
-- **huskynix** (Desktop PC): Running `nixpkgs-unstable` with the **Niri** window manager, **Catppuccin** theme, and **Lanzaboote** for Secure Boot.
-- **pugnix** (Raspberry Pi Server): Headless server running `nixos-26.05` stable. Features Docker (rootless), Tailscale, and more.
-
-### 🌟 Features
-
-- **Window Manager:** Niri (Wayland) for the workstation.
-- **Theming:** Catppuccin Mocha Mauve natively integrated across tools (Kitty, Zsh, Btop, etc.).
-- **Shell Environment:** Custom developer environments via [Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell).
-- **Security:** Full UEFI Secure Boot support via [Lanzaboote](https://github.com/nix-community/lanzaboote) on the desktop.
-- **Deployment:** Managed via `nh` (Nix Helper) with cross-compilation & remote deployment support.
+| Host | Type | Architecture | Base Channel | Documentation |
+| :--- | :--- | :--- | :--- | :--- |
+| **[HuskyNix](devices/desktop/huskynix/README.md)** | Desktop Workstation | `x86_64-linux` | `nixos-unstable` | [Read Guide](devices/desktop/huskynix/README.md) |
+| **[PugNix](devices/server/pugnix/README.md)** | Headless Homelab Server | `aarch64-linux` | `nixos-26.05` (Stable) | [Read Guide](devices/server/pugnix/README.md) |
 
 ---
 
-### 🚀 Installation & Setup
+### 🌟 Ecosystem Highlights
 
-#### 1. Workstation Bootstrapping (huskynix)
+- **Window Management & Aesthetics:** [Niri](https://github.com/YaLTeR/niri) scrollable tiling Wayland compositor paired with [Noctalia Shell](https://github.com/noctalia-dev/noctalia) and native **Catppuccin Mocha Mauve** theming across desktop and terminal tools.
+- **Hardware Security:** Full UEFI Secure Boot support on the desktop via [Lanzaboote](https://github.com/nix-community/lanzaboote) with TPM2 integration.
+- **Multi-Device Deployment:** Managed via `nh` (Nix Helper) with cross-compilation support and network-targeted closures.
+- **Autonomous AI Ops:** Declarative integration of [Hermes Agent](https://github.com/NousResearch/hermes-agent) on server infrastructure with homelab diagnostic skills.
+- **Developer Stack:** Fast Node Manager (`fnm`), Node.js 24, Python 3.12 (pip/virtualenv/uv/wheel), Docker, and Pi Coding Agent.
 
-Boot from a NixOS Live USB. Partition your drives manually and mount them to `/mnt`. Then, generate the base hardware configuration and clone this repository:
+---
 
-```bash
-nixos-generate-config --root /mnt
-cd /mnt/etc && mv nixos nix.bak
-git clone https://github.com/JampyVi98/nixtalia-niri.git && rm -rf nixos/.git
-mv nix.bak/hardware-configuration.nix nixos/devices/desktop/huskynix
-cd nixos && git init && git add .
-nixos-install --flake .#huskynix
-nixos-enter --root /mnt -c 'passwd jampyvi'
-reboot
+### 📁 Repository Structure
+
+```text
+.
+├── config/                 # Raw window manager and terminal configs (Niri, Ghostty, Starship)
+├── devices/                # Host-specific hardware profiles and configurations
+│   ├── desktop/huskynix/   # Primary desktop workstation profile & README
+│   └── server/pugnix/      # Raspberry Pi headless server profile & README
+├── home/                   # Home Manager modules and user environments
+│   ├── config/             # XDG, GTK, QT and cursor settings
+│   ├── editors/            # Editor configs (Antigravity IDE, Micro)
+│   ├── programs/           # Declarative CLI and GUI applications (Hermes, Pi, etc.)
+│   └── shell/              # Shell configuration (Zsh, plugins, fnm, yazi)
+├── modules/                # Reusable NixOS system modules (audio, baseline, nvidia, amd, etc.)
+└── flake.nix               # Flake entrypoint and system definitions
 ```
 
-#### 2. Post-Installation
+---
 
-After rebooting into your new system, log in and copy the configuration to your home folder:
+### ⚡ Common Commands & Aliases
 
-```bash
-sudo cp -r /etc/nixos ~/nixos
-sudo chown -R jampyvi:users ~/nixos
-```
-
-#### 3. Configure Secure Boot (Lanzaboote)
-
-If you format your root partition, you will lose your private PKI keys (`/var/lib/sbctl`). You must generate new ones and enroll them in your motherboard's UEFI.
-
-**Step A:** Put your motherboard BIOS in **Setup Mode** (usually by clearing the current Secure Boot keys). Boot into NixOS.
-
-**Step B:** Generate new keys and enroll them:
-
-```bash
-# Generate the keys
-sudo nix run nixpkgs#sbctl -- create-keys
-
-# Remove immutable flag if your kernel protects EFI variables
-sudo chattr -i /sys/firmware/efi/efivars/{PK,KEK,db}*
-
-# Enroll keys (including Microsoft keys for Windows Dual Boot)
-sudo nix run nixpkgs#sbctl -- enroll-keys --microsoft
-```
-
-**Step C:** Reboot your PC, enter the BIOS, and change Secure Boot to **Enabled**.
-
-#### 4. Rebuild the Workstation
-
-Apply the configuration. The first time, it's recommended to use the official `nixos-rebuild` command and point it to the `huskynix` host:
-
-```bash
-sudo nixos-rebuild switch --flake .#huskynix
-```
-
-For future everyday updates, you can use `nh`:
-
-```bash
-nh os switch ~/nixos -H huskynix
-# or using the 'nos' alias:
-nos
-```
-
-#### 5. Headless Server (pugnix - Raspberry Pi)
-
-To build the bootable SD card image and manage the headless server:
-
-**Step A:** Build the image on your workstation (cross-compilation enabled via binfmt):
-```bash
-nix build .#pugnix-image
-```
-
-**Step B:** Flash the SD card (assumes `/dev/sda` is your card reader):
-```bash
-zstdcat result/sd-image/nixos-image-sd-card-*.img.zst | sudo dd of=/dev/sda bs=4M status=progress oflag=sync
-```
-
-**Step C:** Deploy future updates remotely over the network using the `npi` alias:
-```bash
-npi
-# or manually:
-nh os switch ~/nixos -H pugnix --target-host jampyvi@192.168.18.110
-```
+| Alias / Command | Description |
+| :--- | :--- |
+| `nos` | Rebuild and switch local workstation (`nh os switch ~/nixos -H huskynix`) |
+| `npu` | Update flake lock and rebuild local workstation (`nh os switch ~/nixos -H huskynix --update`) |
+| `nrp` | Deploy configuration remotely to Raspberry Pi (`nh os switch ~/nixos -H pugnix --target-host ...`) |
+| `nix build .#pugnix-image` | Cross-compile bootable SD card image for Raspberry Pi |
+| `cleanup` | Delete old Nix generations and garbage collect store (`nix-collect-garbage`) |
 
 ---
 
 ### 🙏 Acknowledgements
-
-A huge thanks to the following repositories for serving as inspiration and providing excellent architectural references for this setup:
 
 - [raexera/yuki](https://github.com/raexera/yuki)
 - [epic9491/nixos](https://github.com/epic9491/nixos)
@@ -122,112 +69,59 @@ A huge thanks to the following repositories for serving as inspiration and provi
 
 ## Español
 
-Bienvenido a **Nixtalia Niri**, mi suite de configuración personal de NixOS. Este repositorio utiliza **Flakes** y **Home Manager** para administrar todo el estado del sistema de forma declarativa en distintos dispositivos.
+Bienvenido a **Nixtalia Niri**, un ecosistema modular y declarativo de NixOS administrado mediante **Nix Flakes** y **Home Manager**. Este repositorio coordina estaciones de trabajo y servidores a través de múltiples arquitecturas (`x86_64-linux` y `aarch64-linux`).
 
-### 🖥️ Equipos
+### 🖥️ Equipos Administrados
 
-- **huskynix** (PC de Escritorio): Ejecuta `nixpkgs-unstable` con el gestor de ventanas **Niri**, temas **Catppuccin**, y **Lanzaboote** para Secure Boot.
-- **pugnix** (Servidor Raspberry Pi): Servidor headless corriendo `nixos-26.05` estable. Incluye Docker (rootless), Tailscale, y más.
-
-### 🌟 Características
-
-- **Window Manager:** Niri (Wayland) para la estación de trabajo.
-- **Temas:** Catppuccin Mocha Mauve integrado nativamente (Kitty, Zsh, Btop, etc.).
-- **Entorno Shell:** Entornos de desarrollo a medida usando [Noctalia Shell](https://github.com/noctalia-dev/noctalia-shell).
-- **Seguridad:** Soporte completo para UEFI Secure Boot usando [Lanzaboote](https://github.com/nix-community/lanzaboote) en el escritorio.
-- **Despliegues:** Gestionado con `nh` (Nix Helper) con soporte de compilación cruzada y despliegue remoto.
+| Host | Tipo | Arquitectura | Canal Base | Documentación |
+| :--- | :--- | :--- | :--- | :--- |
+| **[HuskyNix](devices/desktop/huskynix/README.md)** | PC de Escritorio | `x86_64-linux` | `nixos-unstable` | [Ver Guía](devices/desktop/huskynix/README.md) |
+| **[PugNix](devices/server/pugnix/README.md)** | Servidor Homelab Headless | `aarch64-linux` | `nixos-26.05` (Estable) | [Ver Guía](devices/server/pugnix/README.md) |
 
 ---
 
-### 🚀 Instalación y Puesta a Punto
+### 🌟 Aspectos Destacados del Ecosistema
 
-#### 1. Preparar e Instalar el Sistema (huskynix)
+- **Entorno Visual y Ventanas:** Compositor Wayland de mosaico desplazable [Niri](https://github.com/YaLTeR/niri) junto a [Noctalia Shell](https://github.com/noctalia-dev/noctalia) y paleta **Catppuccin Mocha Mauve** integrada de forma nativa.
+- **Seguridad Criptográfica:** UEFI Secure Boot habilitado en el equipo principal mediante [Lanzaboote](https://github.com/nix-community/lanzaboote) con soporte TPM2.
+- **Despliegues Multi-Dispositivo:** Gestión ágil con `nh` (Nix Helper) con soporte de compilación cruzada y despliegues remotos por red.
+- **Operaciones Autónomas con IA:** Integración declarativa oficial de [Hermes Agent](https://github.com/NousResearch/hermes-agent) en el servidor con habilidades de diagnóstico homelab.
+- **Stack de Desarrollo:** Fast Node Manager (`fnm`), Node.js 24, Python 3.12 (pip/virtualenv/uv/wheel), Docker y Pi Coding Agent.
 
-Arranca desde un Live USB de NixOS. Particiona tus discos manualmente y móntalos en `/mnt`. Luego, genera la configuración de hardware base y clona este repositorio:
+---
 
-```bash
-nixos-generate-config --root /mnt
-cd /mnt/etc && mv nixos nix.bak
-git clone https://github.com/JampyVi98/nixtalia-niri.git && rm -rf nixos/.git
-mv nix.bak/hardware-configuration.nix nixos/devices/desktop/huskynix
-cd nixos && git init && git add .
-nixos-install --flake .#huskynix
-nixos-enter --root /mnt -c 'passwd jampyvi'
-reboot
-```
+### 📁 Estructura del Repositorio
 
-#### 2. Post-Instalación
-
-Tras reiniciar y entrar a tu nuevo sistema, inicia sesión y copia la configuración a tu carpeta personal:
-
-```bash
-sudo cp -r /etc/nixos ~/nixos
-sudo chown -R jampyvi:users ~/nixos
-```
-
-#### 3. Configurar Secure Boot (Lanzaboote)
-
-Al formatear la partición raíz, perderás tus llaves privadas de Secure Boot (`/var/lib/sbctl`). Debes generar unas nuevas y enrolarlas en la placa madre.
-
-**Paso A:** Entra a la BIOS de tu placa madre y ponla en **Setup Mode** (usualmente borrando las llaves actuales de Secure Boot). Inicia NixOS.
-
-**Paso B:** Genera llaves nuevas y enrólalas en la placa madre:
-
-```bash
-# Generar las llaves
-sudo nix run nixpkgs#sbctl -- create-keys
-
-# Quitar protección de inmutabilidad del kernel (si te da error de efivars al enrolar)
-sudo chattr -i /sys/firmware/efi/efivars/{PK,KEK,db}*
-
-# Enrolar las llaves (incluyendo las de Microsoft para compatibilidad con Windows)
-sudo nix run nixpkgs#sbctl -- enroll-keys --microsoft
-```
-
-**Paso C:** Reinicia tu PC, entra a la BIOS y cambia el Secure Boot a **Enabled**.
-
-#### 4. Reconstruir el Escritorio
-
-Aplica la configuración. Para la primera vez, se recomienda usar el comando oficial apuntando al host `huskynix`:
-
-```bash
-sudo nixos-rebuild switch --flake .#huskynix
-```
-
-Para tus actualizaciones del día a día, puedes usar `nh`:
-
-```bash
-nh os switch ~/nixos -H huskynix
-# o usando el alias 'nos':
-nos
-```
-
-#### 5. Servidor Headless (pugnix - Raspberry Pi)
-
-Para construir la imagen de arranque de la tarjeta SD y administrar el servidor:
-
-**Paso A:** Compila la imagen en tu PC (compilación cruzada habilitada mediante binfmt):
-```bash
-nix build .#pugnix-image
-```
-
-**Paso B:** Flashea la tarjeta SD (asumiendo que `/dev/sda` es el lector):
-```bash
-zstdcat result/sd-image/nixos-image-sd-card-*.img.zst | sudo dd of=/dev/sda bs=4M status=progress oflag=sync
-```
-
-**Paso C:** Despliega actualizaciones futuras de forma remota sobre la red usando el alias `npi`:
-```bash
-npi
-# o manualmente:
-nh os switch ~/nixos -H pugnix --target-host jampyvi@192.168.18.110
+```text
+.
+├── config/                 # Configuraciones de compositor y terminal (Niri, Ghostty, Starship)
+├── devices/                # Perfiles de hardware por equipo
+│   ├── desktop/huskynix/   # Perfil y README del equipo principal
+│   └── server/pugnix/      # Perfil y README del servidor Raspberry Pi
+├── home/                   # Módulos de Home Manager y entorno de usuario
+│   ├── config/             # Parámetros XDG, GTK, QT y cursores
+│   ├── editors/            # Editores de código (Antigravity IDE, Micro)
+│   ├── programs/           # Aplicaciones CLI y GUI (Hermes, Pi, etc.)
+│   └── shell/              # Shell (Zsh, plugins, fnm, yazi)
+├── modules/                # Módulos de sistema reutilizables (audio, baseline, nvidia, amd, etc.)
+└── flake.nix               # Punto de entrada del Flake y definición de sistemas
 ```
 
 ---
 
-### 🙏 Créditos
+### ⚡ Comandos y Alias Frecuentes
 
-Un enorme agradecimiento a los siguientes repositorios por servir como inspiración y proveer excelentes referencias arquitectónicas para esta configuración:
+| Alias / Comando | Descripción |
+| :--- | :--- |
+| `nos` | Reconstruir y aplicar cambios en el equipo local (`nh os switch ~/nixos -H huskynix`) |
+| `npu` | Actualizar flake lock y reconstruir el equipo local (`nh os switch ~/nixos -H huskynix --update`) |
+| `nrp` | Desplegar configuración remotamente al Raspberry Pi (`nh os switch ~/nixos -H pugnix --target-host ...`) |
+| `nix build .#pugnix-image` | Compilar la imagen de arranque para tarjeta SD del Raspberry Pi |
+| `cleanup` | Limpiar generaciones antiguas y liberar espacio en Nix store |
+
+---
+
+### 🙏 Créditos y Referencias
 
 - [raexera/yuki](https://github.com/raexera/yuki)
 - [epic9491/nixos](https://github.com/epic9491/nixos)

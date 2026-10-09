@@ -21,16 +21,21 @@
       opener = {
         edit = [
           {
-            run = "micro \"$@\"";
+            run = "micro %s";
             block = true;
             for = "unix";
+            desc = "Micro";
           }
         ];
       };
       open = {
-        rules = [
+        prepend_rules = [
           {
             mime = "text/*";
+            use = "edit";
+          }
+          {
+            mime = "application/{json,ndjson,javascript,wine-extension-ini}";
             use = "edit";
           }
         ];

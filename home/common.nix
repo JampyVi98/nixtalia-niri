@@ -46,6 +46,15 @@
             exec x-terminal-emulator -e zsh -i -c "$EXEC_CMD"
         fi
       '')
+      (pkgs.writeShellScriptBin "playwright-cli" ''
+        exec ${pkgs.nodejs}/bin/npx -y @playwright/cli@latest "$@"
+      '')
+      (pkgs.writeShellScriptBin "astro" ''
+        exec ${pkgs.nodejs}/bin/npx -y astro "$@"
+      '')
+      (pkgs.writeShellScriptBin "create-astro" ''
+        exec ${pkgs.nodejs}/bin/npx -y create-astro "$@"
+      '')
     ];
   };
 

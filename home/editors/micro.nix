@@ -16,4 +16,9 @@ _: {
       quoter = true;
     };
   };
+
+  home.sessionVariables = {
+    EDITOR = "micro";
+    VISUAL = "micro";
+  };
 }

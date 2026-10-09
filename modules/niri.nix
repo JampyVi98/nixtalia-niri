@@ -49,7 +49,7 @@ in {
       defaultSession = "niri";
     };
 
-    programs.noctalia-greeter = {
+    services.displayManager.noctalia-greeter = {
       enable = true;
     };
 
