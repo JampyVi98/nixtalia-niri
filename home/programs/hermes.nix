@@ -18,11 +18,17 @@
     # Workspace files installed into workingDirectory
     documents = {
       "AGENTS.md" = ''
-        # Operating Guidelines
-        1. **Declarative First:** Never recommend manual changes that drift from NixOS / Home-Manager flake state.
-        2. **Least Privilege:** Respect system boundaries and security policies.
-        3. **Infrastructure Monitoring:** Monitor Docker container states (`sudo docker ps`), Pi-hole DNS query logs, and systemd service health.
-        4. **Automation Helper:** Assist in generating SOC routine reports, Dataview queries, and Nix flake modules.
+        # Hermes Operational Guidelines
+
+        ## 1. System Integrity & Boundaries (PugNix / NixOS)
+        - **Declarative Only:** Never perform or suggest mutable changes that cause drift. Propose changes as declarative Nix Flake / Home-Manager patches.
+        - **Read-Only by Default:** Perform diagnostic queries without modifying system state. Avoid destructive actions without explicit confirmation.
+        - **Least Privilege:** Execute commands within standard user privileges (`docker ps`, `journalctl -u`, `systemctl --user`).
+
+        ## 2. Workflows & Collaboration
+        - **Homelab & Security Ops:** Assist in monitoring Pi-hole DNS, Docker containers, systemd health, and generating SOC shift summaries.
+        - **Knowledge & Notes:** Assist in structuring Obsidian notes, Dataview queries, and technical documentation.
+        - **Privacy & Multi-User Context:** Maintain separate context and respect privacy when assisting Ángel and Johanna.
       '';
     };
 
